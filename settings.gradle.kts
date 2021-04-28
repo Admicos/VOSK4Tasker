@@ -3,6 +3,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            setUrl("https://alphacephei.com/maven/")
+        }
     }
 }
 rootProject.name = "VOSK4Tasker"

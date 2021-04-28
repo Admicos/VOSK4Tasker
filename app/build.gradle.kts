@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+import java.util.UUID
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -13,6 +16,12 @@ android {
         targetSdk = 30
         versionCode = 1
         versionName = "1.0"
+        ndk {
+            abiFilters.add("armeabi-v7a")
+            abiFilters.add("arm64-v8a")
+            abiFilters.add("x86_64")
+            abiFilters.add("x86")
+        }
     }
 
     buildTypes {
@@ -34,6 +43,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    sourceSets.getByName("main") {
+        assets.srcDir("$buildDir/generated/assets")
+    }
 }
 
 dependencies {
@@ -43,4 +55,21 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
 
     implementation("com.joaomgcd:taskerpluginlibrary:0.4.1")
+
+    implementation("net.java.dev.jna:jna:5.8.0@aar")
+    implementation("com.alphacephei:vosk-android:0.3.23")
 }
+
+// VOSK assets
+// https://github.com/alphacep/vosk-android-demo/blob/master/models/build.gradle
+
+tasks.preBuild.dependsOn(tasks.register("genUUID") {
+    val uuid = UUID.randomUUID()
+    val odir = file("$buildDir/generated/assets/model")
+    val ofile = file("$odir/uuid")
+
+    doLast {
+        mkdir(odir)
+        ofile.writeText(uuid.toString())
+    }
+})

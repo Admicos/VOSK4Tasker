@@ -1,6 +1,7 @@
 package li.ebc.vosk4tasker.tasker
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerAction
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
@@ -13,6 +14,7 @@ import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputVariable
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 import li.ebc.vosk4tasker.R
+import li.ebc.vosk4tasker.VOSKActivity
 import li.ebc.vosk4tasker.databinding.ActivitySpeaknowConfigureBinding
 
 @TaskerInputRoot
@@ -44,10 +46,13 @@ class SpeakNowActionRunner : TaskerPluginRunnerAction<SpeakNowInput, SpeakNowOut
         context: Context,
         input: TaskerInput<SpeakNowInput>
     ): TaskerPluginResult<SpeakNowOutput> {
-        val prompt = input.regular.prompt
-        // TODO: the entire "speak now" thingy here
-        val output = SpeakNowOutput("lorem ipsum")
-        return TaskerPluginResultSucess(output)
+        val intent = Intent(context, VOSKActivity::class.java).apply {
+            putExtra("prompt", input.regular.prompt)
+        }
+
+        context.startActivity(intent)
+
+        return TaskerPluginResultSucess(SpeakNowOutput("lorem ipsum"))
     }
 }
 
