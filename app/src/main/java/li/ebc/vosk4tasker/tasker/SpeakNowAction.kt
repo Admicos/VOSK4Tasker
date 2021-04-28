@@ -48,6 +48,7 @@ class SpeakNowActionRunner : TaskerPluginRunnerAction<SpeakNowInput, SpeakNowOut
     ): TaskerPluginResult<SpeakNowOutput> {
         val intent = Intent(context, VOSKActivity::class.java).apply {
             putExtra("prompt", input.regular.prompt)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
         }
 
         context.startActivity(intent)
