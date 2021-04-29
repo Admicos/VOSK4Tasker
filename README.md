@@ -13,8 +13,9 @@ glues it for use with Tasker.
 
 ## Downloads
 
-No downloadable versions exist as this is not complete just yet. If you're curious and have an Android
-development environment, read on!
+Download at your own risk. This is not fully featured: https://ebc.li/tasker/vosk/
+
+The APK is ~50 MBs. Be careful with your data plan!
 
 ## Building
 
