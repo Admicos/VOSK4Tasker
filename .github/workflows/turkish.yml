@@ -1,4 +1,4 @@
-name: Auto Build English
+name: Auto Build Turkish
 
 on:
   push:
@@ -28,7 +28,10 @@ jobs:
             ${{ runner.os }}-gradle-
           
       - name: Download Language Model
-        run: ./scripts/english.sh
+        run: ./scripts/turkish.sh
+
+      - name: Update Package Name
+        run: ./scripts/change_package.sh li.ebc.vosk4tasktr
 
       - name: Build Unsigned APK
         run: bash ./gradlew :app:assembleRelease
@@ -51,8 +54,8 @@ jobs:
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: true
-          name: "Latest Version (English)"
-          tag: rolling
+          name: "Latest Version (Turkish)"
+          tag: rolling-tr
           artifacts: ${{steps.sign_app.outputs.signedReleaseFile}}
           body: "This app uses a rolling release system, where no real releases exist and this page automatically updates with every new commit. Click the 'Assets' button if no APK link is visible"
           token: ${{ secrets.GITHUB_TOKEN }}
