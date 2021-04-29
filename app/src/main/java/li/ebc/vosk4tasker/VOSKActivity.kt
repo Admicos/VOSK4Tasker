@@ -26,11 +26,11 @@ import java.lang.Exception
 
 
 class VOSKActivity : AppCompatActivity(), RecognitionListener, CoroutineScope by MainScope() {
-    lateinit var view: ActivityVoskBinding
-    lateinit var prompt: String
-    lateinit var model: Model
+    private lateinit var view: ActivityVoskBinding
+    private lateinit var prompt: String
+    private lateinit var model: Model
 
-    var speechService: SpeechService? = null
+    private var speechService: SpeechService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +92,7 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener, CoroutineScope by
                 Log.i("VOSK4T", "Listening!")
             }
         ) { exception: IOException ->
-            view.statusText.text = "Exception unpacking model: " + exception.message
+            view.statusText.text = getString(R.string.speak_activity_exception, exception.message)
         }
     }
 
@@ -101,7 +101,7 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener, CoroutineScope by
         val text = obj.getString("partial")
 
         if (text.isNotEmpty()) {
-            view.previewText.text = text + " ..."
+            view.previewText.text = getString(R.string.speak_activity_partial, text)
         }
     }
 
@@ -113,7 +113,7 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener, CoroutineScope by
             speechService?.stop()
             speechService = null
 
-            view.statusText.text = "Got it!"
+            view.statusText.text = getString(R.string.speak_activity_done)
             view.previewText.text = text
 
             launch {
@@ -130,7 +130,7 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener, CoroutineScope by
     }
 
     override fun onError(error: Exception) {
-        view.statusText.text = "Error: " + error.message
+        view.statusText.text = getString(R.string.speak_activity_error, error.message)
 
         launch {
             speaknowResultChannel.send(SpeaknowResult(
@@ -141,11 +141,11 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener, CoroutineScope by
     }
 
     override fun onTimeout() {
-        view.statusText.text = "Timed out"
+        view.statusText.text = getString(R.string.speak_activity_timeout)
 
         launch {
             speaknowResultChannel.send(SpeaknowResult(
-                false, "Timed out"
+                false, getString(R.string.speak_activity_timeout)
             ))
             finish()
         }

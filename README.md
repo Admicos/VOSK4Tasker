@@ -11,33 +11,29 @@ Yes, and you may see it:
 VOSK4Tasker uses [Alpha Cephei's Vosk](https://alphacephei.com/vosk) speech recognition toolkit, and
 glues it for use with Tasker.
 
-## Downloads
-
-Download at your own risk. This is not fully featured: https://ebc.li/tasker/vosk/
+## [Downloads](https://github.com/Admicos/VOSK4Tasker/releases)
 
 The APK is ~50 MBs. Be careful with your data plan!
 
 ## Building
 
-1. Run `./download-model.sh`, or manually do what it does if you're not under Linux
+1. Run `./download-model.sh`
 2. Build under Android Studio
 3. profit
+
+### Manual language model download
+
+If you're not under Linux, or just want to download a different model, here's how to download the
+models manually.
+
+1. Go to https://alphacephei.com/vosk/models
+2. Pick a small model (example: `vosk-model-small-tr-0.3`)
+3. Download zip and extract
+4. Rename the folder inside zip to `model`
+5. Place it as `app/src/main/assets/model`
 
 ## Usage
 
 After installation, Tasker should recognize this and give you an option to add a new action from the
 "Plugin" menu. In the action, set "Prompt" to what you want the user to see when asked for speech
-input, and set "Event ID" to something unique.
-
-To get the speech as text back to Tasker, create an event for "Text-to-speech Spoken" under the
-"Plugin" menu. Set the "Event ID" to the same unique string you set, and continue execution from
-there!
-
-This is unwieldy, I know, but due to some current limitations this has to work like this. ~~Please
-fork the code and fix all the bugs yourself i am done with android development it's a pain in the-~~
-
-## Changing the Language
-
-Changing the language requires modification during build time. Please see the [this commit](https://git.ebc.li/experiments/vosk4tasker/commit/7fc63cfc3f8316fc19ffc3ec141edbe49ea15af4)
-as an example. I cannot be bothered with maintaining multiple builds so you will only get English
-as pre-built APKs.
+input, and you're done. The variable `%text` is your speech to text output.

@@ -76,9 +76,8 @@ class SpeakNowActionRunner : TaskerPluginRunnerAction<SpeakNowInput, SpeakNowOut
 }
 
 class SpeakNowAction : ActivityConfigTasker<SpeakNowInput, SpeakNowOutput, SpeakNowActionRunner, SpeakNowActionHelper>() {
-    lateinit var view: ActivitySpeaknowConfigureBinding
-    var promptText = ""
-    var eventText = ""
+    private lateinit var view: ActivitySpeaknowConfigureBinding
+    private var promptText = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

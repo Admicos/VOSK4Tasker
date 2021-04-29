@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Please Wait..."
+        android:text="@string/speak_activity_please_wait"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/preview_text"
         app:layout_constraintEnd_toEndOf="parent"

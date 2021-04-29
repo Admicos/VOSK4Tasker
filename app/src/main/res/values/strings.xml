@@ -2,7 +2,7 @@
     <string name="app_name">VOSK4Tasker</string>
 
     <string name="speaknow_input_prompt">Prompt</string>
-    <string name="speaknow_default_prompt">Speak Now...</string>
+    <string name="speaknow_default_prompt">Speak Now…</string>
 
     <string name="speaknow_out_text">Text</string>
     <string name="speaknow_out_text_desc">Result of Speech-to-text</string>
@@ -11,4 +11,11 @@
     <string name="mainwindow_bottomtext">
         © Ecmel Berk Canlıer - 2021<br/>Licensed under the MIT License<br/>https://github.com/Admicos/VOSK4Tasker
     </string>
+
+    <string name="speak_activity_error">Error: %1$s</string>
+    <string name="speak_activity_exception">Exception Unpacking Model: %1$s</string>
+    <string name="speak_activity_partial">%1$s …</string>
+    <string name="speak_activity_done">Got It!</string>
+    <string name="speak_activity_timeout">Timed Out</string>
+    <string name="speak_activity_please_wait">Please Wait…</string>
 </resources>
