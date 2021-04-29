@@ -27,8 +27,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
           
-      - name: Download English Model
-        run: ./download-model.sh
+      - name: Download Language Model
+        run: ./scripts/english.sh
 
       - name: Build Unsigned APK
         run: bash ./gradlew :app:assembleRelease

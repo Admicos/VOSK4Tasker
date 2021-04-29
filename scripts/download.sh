@@ -14,11 +14,3 @@ download() {
         rm model.zip
     fi
 }
-
-
-# see https://alphacephei.com/vosk/models
-# remove the folder contents before changing models!
-
-cd app/src/main/assets
-download "en-us" "0.15"
-# download "tr" "0.3"
