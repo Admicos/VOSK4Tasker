@@ -51,7 +51,8 @@ jobs:
           allowUpdates: true
           artifactErrorsFailBuild: true
           prerelease: true
+          name: Latest Version
           tag: rolling
-          artifact: ${{steps.sign_app.outputs.signedReleaseFile}}
-          body: "Latest 'rolling' release"
+          artifacts: ${{steps.sign_app.outputs.signedReleaseFile}}
+          body: "This app uses a rolling release system, where no real releases exist and this page automatically updates with every new commit. Click the 'Assets' button if no APK link is visible"
           token: ${{ secrets.GITHUB_TOKEN }}
