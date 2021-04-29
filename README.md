@@ -24,7 +24,13 @@ development environment, read on!
 
 ## Usage
 
-After installation, Tasker should recognize this and give you an option to add it under a new event.
+After installation, Tasker should recognize this and give you an option to add a new action from the
+"Plugin" menu. In the action, set "Prompt" to what you want the user to see when asked for speech
+input, and set "Event ID" to something unique.
 
-Currently, this is pretty broken, and the event does not work as well as it should, but if you're
-lucky you might get it to recognize your voice for a bit, without returning anything to Tasker.
+To get the speech as text back to Tasker, create an event for "Text-to-speech Spoken" under the
+"Plugin" menu. Set the "Event ID" to the same unique string you set, and continue execution from
+there!
+
+This is unwieldy, I know, but due to some current limitations this has to work like this. ~~Please
+fork the code and fix all the bugs yourself i am done with android development it's a pain in the-~~
