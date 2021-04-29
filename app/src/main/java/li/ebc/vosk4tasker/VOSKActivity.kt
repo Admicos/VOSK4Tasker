@@ -7,10 +7,12 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.joaomgcd.taskerpluginlibrary.extensions.requestQuery
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import li.ebc.vosk4tasker.databinding.ActivityVoskBinding
-import li.ebc.vosk4tasker.tasker.SpokenEvent
-import li.ebc.vosk4tasker.tasker.SpokenEventOutput
+import li.ebc.vosk4tasker.tasker.SpeaknowResult
+import li.ebc.vosk4tasker.tasker.speaknowResultChannel
 import org.json.JSONObject
 import org.vosk.LibVosk
 import org.vosk.LogLevel
@@ -23,10 +25,9 @@ import java.io.IOException
 import java.lang.Exception
 
 
-class VOSKActivity : AppCompatActivity(), RecognitionListener {
+class VOSKActivity : AppCompatActivity(), RecognitionListener, CoroutineScope by MainScope() {
     lateinit var view: ActivityVoskBinding
     lateinit var prompt: String
-    lateinit var eventId: String
     lateinit var model: Model
 
     var speechService: SpeechService? = null
@@ -36,7 +37,6 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener {
 
         view = ActivityVoskBinding.inflate(layoutInflater)
         prompt = intent.getStringExtra("prompt") ?: "Speak Now..."
-        eventId = intent.getStringExtra("event_id") ?: ""
 
         setContentView(view.root)
 
@@ -116,11 +116,12 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener {
             view.statusText.text = "Got it!"
             view.previewText.text = text
 
-            SpokenEvent::class.java.requestQuery(
-                this,
-                SpokenEventOutput(eventId, text)
-            )
-            finish()
+            launch {
+                speaknowResultChannel.send(SpeaknowResult(
+                    true, text
+                ))
+                finish()
+            }
         }
     }
 
@@ -130,10 +131,24 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener {
 
     override fun onError(error: Exception) {
         view.statusText.text = "Error: " + error.message
+
+        launch {
+            speaknowResultChannel.send(SpeaknowResult(
+                false, error.message ?: "Unknown Error"
+            ))
+            finish()
+        }
     }
 
     override fun onTimeout() {
         view.statusText.text = "Timed out"
+
+        launch {
+            speaknowResultChannel.send(SpeaknowResult(
+                false, "Timed out"
+            ))
+            finish()
+        }
     }
 
 }

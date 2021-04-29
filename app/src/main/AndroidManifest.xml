@@ -36,16 +36,6 @@
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".tasker.SpokenEvent"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="Speech-to-Text Spoken">
-            <intent-filter>
-                <action android:name="net.dinglisch.android.tasker.ACTION_EDIT_EVENT" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

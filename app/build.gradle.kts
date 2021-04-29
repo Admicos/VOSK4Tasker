@@ -56,6 +56,9 @@ dependencies {
 
     implementation("com.joaomgcd:taskerpluginlibrary:0.4.1")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-RC")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0-RC")
+
     implementation("net.java.dev.jna:jna:5.8.0@aar")
     implementation("com.alphacephei:vosk-android:0.3.23")
 }
