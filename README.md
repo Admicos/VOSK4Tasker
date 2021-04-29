@@ -35,3 +35,9 @@ there!
 
 This is unwieldy, I know, but due to some current limitations this has to work like this. ~~Please
 fork the code and fix all the bugs yourself i am done with android development it's a pain in the-~~
+
+## Changing the Language
+
+Changing the language requires modification during build time. Please see the [this commit](https://git.ebc.li/experiments/vosk4tasker/commit/7fc63cfc3f8316fc19ffc3ec141edbe49ea15af4)
+as an example. I cannot be bothered with maintaining multiple builds so you will only get English
+as pre-built APKs.
