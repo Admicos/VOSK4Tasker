@@ -17,7 +17,7 @@ The APK is ~50 MBs. Be careful with your data plan!
 
 ## Building
 
-1. Run `./download-model.sh`
+1. Run `./scripts/english.sh` (change `english` with a different language if exists)
 2. Build under Android Studio
 3. profit
 
