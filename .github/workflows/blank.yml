@@ -18,6 +18,15 @@ jobs:
         with:
           java-version: 11
           
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+          
       - name: Download English Model
         run: ./download-model.sh
 
@@ -25,7 +34,7 @@ jobs:
         run: bash ./gradlew :app:assembleRelease
         
       - name: Sign APK
-        uses: Tlaster/android-sign@v1
+        uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: |
             app/build/outputs/apk/release
@@ -40,5 +49,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: App
-          path: ${{ github.workspace }}/app/build/release/signed/app-release.apk
+          name: vosk4tasker-en.apk
+          path: app/build/release/signed/app-release.apk
