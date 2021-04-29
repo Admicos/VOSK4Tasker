@@ -1,7 +1,15 @@
 <resources>
     <string name="app_name">VOSK4Tasker</string>
+
     <string name="speaknow_input_prompt">Prompt</string>
     <string name="speaknow_default_prompt">Speak Now...</string>
+
+    <string name="speaknow_input_eventid">Event ID</string>
+    <string name="speaknow_input_eventid_desc">
+        Event ID is used to link this action with a "Spoken" event. This is currently a limitation
+        with this app, where this action cannot directly return the spoken text as a variable.
+        Apologies for the inconvenience!
+    </string>
 
     <string name="speaknow_out_text">Text</string>
     <string name="speaknow_out_text_desc">Result of Speech-to-text</string>

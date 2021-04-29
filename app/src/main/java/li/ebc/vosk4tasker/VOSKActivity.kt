@@ -7,7 +7,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.joaomgcd.taskerpluginlibrary.extensions.requestQuery
 import li.ebc.vosk4tasker.databinding.ActivityVoskBinding
+import li.ebc.vosk4tasker.tasker.SpokenEvent
+import li.ebc.vosk4tasker.tasker.SpokenEventOutput
 import org.json.JSONObject
 import org.vosk.LibVosk
 import org.vosk.LogLevel
@@ -23,6 +26,7 @@ import java.lang.Exception
 class VOSKActivity : AppCompatActivity(), RecognitionListener {
     lateinit var view: ActivityVoskBinding
     lateinit var prompt: String
+    lateinit var eventId: String
     lateinit var model: Model
 
     var speechService: SpeechService? = null
@@ -32,6 +36,7 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener {
 
         view = ActivityVoskBinding.inflate(layoutInflater)
         prompt = intent.getStringExtra("prompt") ?: "Speak Now..."
+        eventId = intent.getStringExtra("event_id") ?: ""
 
         setContentView(view.root)
 
@@ -84,6 +89,7 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener {
                 val rec = Recognizer(m, 16000.0f)
                 speechService = SpeechService(rec, 16000.0f)
                 speechService!!.startListening(this)
+                Log.i("VOSK4T", "Listening!")
             }
         ) { exception: IOException ->
             view.statusText.text = "Exception unpacking model: " + exception.message
@@ -110,7 +116,11 @@ class VOSKActivity : AppCompatActivity(), RecognitionListener {
             view.statusText.text = "Got it!"
             view.previewText.text = text
 
-            // TODO: back to tasker with ya!
+            SpokenEvent::class.java.requestQuery(
+                this,
+                SpokenEventOutput(eventId, text)
+            )
+            finish()
         }
     }
 
