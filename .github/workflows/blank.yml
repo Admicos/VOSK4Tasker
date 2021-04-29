@@ -44,9 +44,14 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
         env:
           BUILD_TOOLS_VERSION: "30.0.3"
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
+          
+      - name: Update Release APK
+        uses: ncipollo/release-action@v1
         with:
-          name: vosk4tasker-en.apk
-          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          prerelease: true
+          tag: rolling
+          artifact: ${{steps.sign_app.outputs.signedReleaseFile}}
+          body: "Latest 'rolling' release"
+          token: ${{ secrets.GITHUB_TOKEN }}
